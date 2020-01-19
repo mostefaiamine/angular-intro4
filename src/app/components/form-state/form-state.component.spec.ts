@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableDataComponent } from './table-data.component';
+import { FormStateComponent } from './form-state.component';
 
-describe('TableDataComponent', () => {
-  let component: TableDataComponent;
-  let fixture: ComponentFixture<TableDataComponent>;
+describe('FormStateComponent', () => {
+  let component: FormStateComponent;
+  let fixture: ComponentFixture<FormStateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableDataComponent ]
+      declarations: [ FormStateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableDataComponent);
+    fixture = TestBed.createComponent(FormStateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

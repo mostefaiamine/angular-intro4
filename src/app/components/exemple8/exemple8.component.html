@@ -1,14 +1,53 @@
-<app-header [title]="'Cache'"></app-header>
+<app-header [title]="'Dynamic Forms'"></app-header>
+<form class="data-form validable" [formGroup]="myForm">
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" [formControl]="cName" />
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.required">This field is required</span>
+    </div>
+    <div>
+        <section formArrayName="items" *ngFor="let item of itemsControls; let i = index;">
+            <div [formGroupName]="i">
+                <div class="line column">
+                    <label for="txtName">Product</label>
+                    <select [formControl]="item.controls.product">
+                        <option>Mouse</option>
+                        <option>Keyboard</option>
+                        <option>Printer</option>
+                    </select>
+                    <span class="error-message" *ngIf="item.controls.product.errors?.required">This field is
+                        required</span>
+                </div>
+                <div class="line column">
+                    <label for="txtName">Product</label>
+                    <input type="text" [formControl]="item.controls.quantity" />
+                    <span class="error-message" *ngIf="item.controls.quantity.errors?.required">This field is
+                        required</span>
+                    <span class="error-message" *ngIf="item.controls.quantity.errors?.min">The minimum quantity is
+                        1</span>
+                    <span class="error-message" *ngIf="item.controls.quantity.errors?.max">The maximum quantity is
+                        20</span>
+                    <span class="error-message" *ngIf="item.controls.quantity.errors?.number">Please enter a valid
+                        number</span>
+                </div>
+                <div class="column">
+                    <button (click)="remove(i)" *ngIf="i >= 1">Remove this line</button>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </section>
+        <section>
+            <button (click)="addLine()">Add a new line</button>
+        </section>
+        <section>
+            <button (click)="formSubmitted()" [disabled]="myForm.invalid">Submit</button>
+        </section>
+    </div>
+
+</form>
 <div>
-    <button (click)="getData()">Get Data</button>
+    current data : {{myForm?.value | json}}
 </div>
-<ul>
-    <li *ngFor="let c of data"> {{c.name}} | {{c.capital}}</li>
-</ul>
-<div class="loader" *ngIf="loading">
-    <span>Loading...</span>
-    <img src="/assets/loader.gif" />
-</div>
-<div class="error" *ngIf="error">
-    <span>Oups ! Something went wrong</span>
+<div>
+    submitted data : {{submittedData | json}}
 </div>

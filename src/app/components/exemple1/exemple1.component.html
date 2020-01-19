@@ -1,7 +1,34 @@
-<app-header [title]="'Hello Observables'"></app-header>
+<app-header [title]="'Template Forms'"></app-header>
+<form class="data-form" (ngSubmit)="onSubmit()">
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" name="name" #txtName [(ngModel)]="info.name" />        
+        
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" name="age" #txtAge [(ngModel)]="info.age" />
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select #cbJob name="job" [(ngModel)]="info.job">
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+    </div>
+    <div class="line">
+        <label for="txtMail">Mail</label>
+        <input type="email" name="mail" #txtMail [(ngModel)]="info.mail" />
+        <span *ngIf="txtMail.invalid">cool</span>
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" />
+    </div>
+</form>
 <div>
-    <button (click)="click()">Subscribe !</button>
+    current data : {{info | json}}
 </div>
-<ul>
-    <li *ngFor="let i of data">{{i}}</li>
-</ul>
+<div>
+    submitted data : {{submittedData | json}}
+</div>

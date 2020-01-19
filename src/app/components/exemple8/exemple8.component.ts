@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdvancedCountryService } from 'src/app/services/country/advanced-country.service';
-import { finalize } from 'rxjs/operators';
+import { FormControl, FormGroup, Validators, FormBuilder, AbstractControl, ValidationErrors, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-exemple8',
@@ -9,26 +8,66 @@ import { finalize } from 'rxjs/operators';
 })
 export class Exemple8Component implements OnInit {
 
-  error = false;
+  cName: FormControl;
 
-  loading = false;
+  myForm: FormGroup;
 
-  data: any;
+  submittedData: any;
 
-  constructor(private $ser: AdvancedCountryService) { }
+  private static number(c: AbstractControl): ValidationErrors | null {
+    if (c.value && typeof c.value === 'string') {
+      const value: string = c.value || '';
+      const valid = value.match(/^([0-9])*$/);
+      return valid ? null : { number: true };
+    } else {
+      return null;
+    }
 
-  ngOnInit() {
   }
 
-  getData() {
-    const observable = this.$ser.getData().pipe(
-      finalize(() => this.loading = false)
-    );
-    this.loading = true;
-    observable.subscribe(
-      s => this.data = s,
-      error => this.error = true
-    );
+
+  createLine(): FormGroup {
+    const cProduct: FormControl = this.$fb.control(null, [Validators.required]);
+    const cQuantity: FormControl = this.$fb.control(1, [Validators.required, Exemple8Component.number, Validators.min(1), Validators.max(20)]);
+    return this.$fb.group({
+      product: cProduct,
+      quantity: cQuantity
+    });
+  }
+
+
+
+
+  constructor(private $fb: FormBuilder) {
+
+  }
+
+  addLine() {
+    const items = this.myForm.get('items') as FormArray;
+    items.push(this.createLine());
+  }
+
+  remove(i: number) {
+    const items = this.myForm.get('items') as FormArray;
+    items.removeAt(i);
+  }
+
+  get itemsControls() {
+    return this.myForm.get('items')['controls'];
+  }
+
+  ngOnInit() {
+    this.cName = this.$fb.control(null, [Validators.required]);
+    const arr = this.$fb.array([this.createLine()]);
+    this.myForm = this.$fb.group({
+      name: this.cName,
+      items: arr
+    });
+
+  }
+
+  formSubmitted() {
+    this.submittedData = this.myForm.value;
   }
 
 }

@@ -1,7 +1,39 @@
-<app-header [title]="'Events'"></app-header>
-
-<ul>
-    <li *ngFor="let i of data">{{i.screenX}} | {{i.screenY}}</li>
-</ul>
-<h2 id="myHeader">Hover me !</h2>
-<p>{{hover}}</p>
+<app-header [title]="'Template Forms with Validation'"></app-header>
+<form class="data-form" (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" name="name"  [(ngModel)]="info.name"  #txtName="ngModel" required/>        
+        <app-form-state [control]="txtName"></app-form-state>
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" name="age" #txtAge="ngModel" [(ngModel)]="info.age" required />
+        <app-form-state [control]="txtAge"></app-form-state>
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select #cbJob="ngModel" name="job" [(ngModel)]="info.job" required>
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+        <app-form-state [control]="txtAge"></app-form-state>
+    </div>
+    <div class="line">
+        <label for="txtMail">Mail</label>
+        <input type="email" name="mail" #txtMail="ngModel" [(ngModel)]="info.mail" required email />
+        <app-form-state [control]="txtMail"></app-form-state>
+    </div>
+    <div>
+        Form state : <app-form-state [control]="myForm"></app-form-state>
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" [disabled]="myForm.invalid" />
+    </div>
+</form>
+<div>
+    current data : {{info | json}}
+</div>
+<div>
+    submitted data : {{submittedData | json}}
+</div>

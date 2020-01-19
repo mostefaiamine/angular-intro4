@@ -1,11 +1,42 @@
-<app-header [title]="'Sharing'"></app-header>
-<div class="column">
-    <app-table-data [trainings]="data"></app-table-data>
+<app-header [title]="'Reactive Forms with Validation'"></app-header>
+<form class="data-form validable" [formGroup]="myForm" >
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" [formControl]="cName"  />    
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.required">This field is required</span>    
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.minlength">The length of this field should exceed 3 characters</span>  
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.maxlength">The length of this field should not exceed 20 characters</span>  
+      <!-->  errors : {{cName.errors | json}}-->
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" [formControl]="cAge" />
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.required">This field is required</span>    
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.min">This field should be greater or equal than 18</span>  
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.max">The length of this field should be less than 45</span>  
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select [formControl]="cJob">
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+        
+    </div>
+    <div class="line">
+        <label for="txtMail">Mail</label>
+        <input [formControl]="cMail"/>
+        <span class="error-message" *ngIf="cMail?.dirty && cMail?.errors?.required">This field is required</span>    
+        <span class="error-message" *ngIf="cMail?.dirty && cMail?.errors?.email">Please enter a valid email</span>  
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" [disabled]="myForm?.invalid" (click)="formSubmitted()" />
+    </div>
+</form>
+<div>
+    current data : {{myForm?.value | json}}
 </div>
-<div class="column">
-    <app-training-editor></app-training-editor>
-</div>
-<div class="column">
-    <app-count></app-count>
-    <app-best></app-best>
+<div>
+    submitted data : {{info | json}}
 </div>

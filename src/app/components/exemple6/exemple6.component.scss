@@ -1,0 +1,6 @@
+div.error-message{
+    border: 1px solid salmon;
+    background-color: lighten($color: salmon, $amount: 5%);
+    color: white;
+    padding: 5px;
+}

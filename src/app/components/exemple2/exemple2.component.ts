@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
+import { Info } from 'src/app/model/info';
 
 @Component({
   selector: 'app-exemple2',
@@ -8,29 +9,29 @@ import { Observable, fromEvent } from 'rxjs';
 })
 export class Exemple2Component implements OnInit {
 
-  data: Array<any> = [];
+  submittedData: any = null;
 
-  $observable: Observable<any>;
+  info: Info = {
+    name: null,
+    age: 0,
+    job: null,
+    mail: null
+  };
 
-  hover = 0;
+
 
   constructor() {
-    this.$observable = fromEvent(document, 'click');
-    this.$observable.subscribe(
-      event => {
-        console.log(event);
-        this.data.push(event);
-      }
-    );
 
   }
 
+
+
   ngOnInit() {
-    const elt = document.getElementById('myHeader');
-    const obs = fromEvent(elt, 'mouseenter');
-    obs.subscribe(
-      s => this.hover++
-    );
+  }
+
+  onSubmit() {
+    this.submittedData = this.info;
+
   }
 
 }

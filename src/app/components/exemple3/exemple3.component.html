@@ -1,13 +1,37 @@
-<app-header [title]="'Functions'"></app-header>
-<h2>Function of</h2>
-<ul *ngFor="let i of obs1 | async">
-   <li>{{i}}</li>
-</ul>
-<h2>Function interval</h2>
-<ul *ngFor="let i of intervalData">
-   <li>{{i}}</li>
-</ul>
-<h2>Function timer</h2>
-<ul *ngFor="let i of timerData">
-   <li>{{i}}</li>
-</ul>
+<app-header [title]="'Template Forms with Validation Messages'"></app-header>
+<form class="data-form validable" (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" name="name"  [(ngModel)]="info.name"  #txtName="ngModel" required/>        
+        <span class="error-message" *ngIf="txtName.dirty && txtName.errors?.required">This field is required</span>
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" name="age" #txtAge="ngModel" [(ngModel)]="info.age" required />
+        <span class="error-message" *ngIf="txtAge.dirty && txtAge.errors?.required">This field is required</span>
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select #cbJob="ngModel" name="job" [(ngModel)]="info.job" required>
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+        
+    </div>
+    <div class="line">
+        <label for="txtMail">Mail</label>
+        <input type="text" name="mail" #txtMail="ngModel" [(ngModel)]="info.mail" email/>
+        <span class="error-message" *ngIf="txtMail.dirty && txtMail.errors?.required">This field is required</span>
+        <span class="error-message" *ngIf="txtMail.dirty && txtMail.errors?.email">Please enter a valid mail</span>
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" [disabled]="myForm.invalid" />
+    </div>
+</form>
+<div>
+    current data : {{info | json}}
+</div>
+<div>
+    submitted data : {{submittedData | json}}
+</div>

@@ -1,14 +1,58 @@
-<app-header [title]="'AJAX'"></app-header>
+<app-header [title]="'Reactive Forms with Async Validation'"></app-header>
+<form class="data-form validable" [formGroup]="myForm">
+    <div class="line error-message" *ngIf="myForm?.dirty && myForm?.errors?.rule">
+        <span>
+            An architect should be 35 or greater
+        </span>
+    </div>
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" [formControl]="cName" />
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.required">This field is required</span>
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.minlength">The length of this field should
+            exceed 3 characters</span>
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.maxlength">The length of this field should not
+            exceed 20 characters</span>
+        <span class="error-message" *ngIf="cName?.dirty && cName?.errors?.name">Please enter a valid name</span>
+        <!-->  errors : {{cName.errors | json}}-->
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" [formControl]="cAge" />
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.required">This field is required</span>
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.min">This field should be greater or equal than
+            18</span>
+        <span class="error-message" *ngIf="cAge?.dirty && cAge?.errors?.max">The length of this field should be less
+            than 45</span>
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select [formControl]="cJob">
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+
+    </div>
+    <div class="line loader">
+        <label for="txtMail">Mail</label>
+        <input [formControl]="cMail" />
+        <div class="lds-facebook" *ngIf="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <span class="error-message" *ngIf="cMail?.dirty && cMail?.errors?.required">This field is required</span>
+        <span class="error-message" *ngIf="cMail?.dirty && cMail?.errors?.email">Please enter a valid email</span>
+        <span class="error-message" *ngIf="cMail?.dirty && cMail?.errors?.exists">This mail already exists</span>
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" [disabled]="!formValid" (click)="formSubmitted()" />
+    </div>
+</form>
 <div>
-    <button (click)="getData()">Get Data</button>
+    current data : {{myForm?.value | json}}
 </div>
-<ul>
-    <li *ngFor="let c of data"> {{c.name}} | {{c.capital}}</li>
-</ul>
-<div class="loader" *ngIf="loading">
-    <span>Loading...</span>
-    <img src="/assets/loader.gif" />
-</div>
-<div class="error" *ngIf="error">
-    <span>Oups ! Something went wrong</span>
+<div>
+    submitted data : {{info | json}}
 </div>

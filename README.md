@@ -6,17 +6,18 @@ Impleméntez les exercices dans les composants associés
 
 ## Exercice 1 :
 
-En utilisant les observables, créez une montre digitale :)
+Créez un formulaire d'inscription avec les données suivantes :
+- Nom
+- Prénom
+- Mail
+- Date de naissance
+- Mot de passe
+- Confirmation
 
 ## Exercice 2
 
-Voici le jeu Guess Mind. Le jeu choisit une série de chiffre au hasard. Pour chaque chiffre, le jeu affiche un autre chiffre au hasard. Le joueur doit deviner si le chiffre affiché est plus grand, plus petit ou égal au chiffr associé.
-
-Le jeu s'arrête à 10 chiffres. Le joueur gagne s'il a plus de 5 réponses correctes.
-
-## Exercice 3
-
-Créez un carousel affichant les derniers films du Box Office. Les données doivent provenir d'une API REST.
-
-Copyright (c) 2019 - Mostefai Mohammed Amine
-
+Créez un assistant de réservation de billet d'avion avec les données suivantes :
+- départ et destination
+- dates
+- informations des voyageurs (nom + numéro de passeport pour chaque voyageur, au moins 1)
+- enfants (dynamique)

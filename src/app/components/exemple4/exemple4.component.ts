@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingService } from 'src/app/services/training/training.service';
-import { Observable, interval, timer } from 'rxjs';
-import { map, tap, take, mergeMap, mergeAll, mergeMapTo, switchMap, concatMap, delay } from 'rxjs/operators';
-import { Training } from 'src/app/model/training';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Info } from 'src/app/model/info';
 
 @Component({
   selector: 'app-exemple4',
@@ -11,48 +9,42 @@ import { Training } from 'src/app/model/training';
 })
 export class Exemple4Component implements OnInit {
 
-  obs1: Observable<Training>;
+  cName: FormControl;
 
+  cAge: FormControl;
 
+  cJob: FormControl;
 
-  obs2: Observable<string>;
+  cMail: FormControl;
 
-  obs3: Observable<Training>;
+  myForm: FormGroup;
 
-  obs4: Observable<Training>;
+  info: Info = {
+    name: null,
+    age: 0,
+    mail: null,
+    job: null
+  }
 
-  obs5: Observable<Training>;
+  constructor(private $fb: FormBuilder) {
 
-  obs6: Observable<Training>;
-
-  obs7: Observable<Training>;
-
-  obs8: Observable<Training>;
-
-
-  constructor(private $ser: TrainingService) {
-    this.obs1 = $ser.getData();
-    this.obs2 = $ser.getData().pipe(
-      map(t => t.title)
-    );
-    this.obs3 = $ser.getData().pipe(
-      tap(s => s.evaluation = s.evaluation + 1)
-    );
-    this.obs4 = $ser.getData().pipe(take(2));
-    this.obs5 = $ser.getData().pipe(delay(1000));
-    this.obs6 = $ser.getData().pipe(
-      mergeMap(x => timer(1000).pipe(map(s => x)))
-    );
-    this.obs7 = $ser.getData().pipe(
-      switchMap(x => timer(1000).pipe(map(s => x)))
-    );
-    this.obs8 = $ser.getData().pipe(
-      concatMap(x => timer(1000).pipe(map(s => x)))
-    );
   }
 
   ngOnInit() {
+    this.cName = this.$fb.control(null);
+    this.cAge = this.$fb.control(18);
+    this.cJob = this.$fb.control('Architect');
+    this.cMail = this.$fb.control(null);
+    this.myForm = this.$fb.group({
+      name: this.cName,
+      age: this.cAge,
+      mail: this.cMail,
+      job: this.cJob
+    })
+  }
 
+  formSubmitted() {
+    this.info = this.myForm.value;
   }
 
 }

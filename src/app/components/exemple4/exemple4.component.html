@@ -1,9 +1,33 @@
-<app-header [title]="'Operators'"></app-header>
-<app-list [label]="'Raw data'" [obs]="obs1"></app-list>
-<app-list [label]="'Map Operator'" [obs]="obs2"></app-list>
-<app-list [label]="'Tap Operator'" [obs]="obs3"></app-list>
-<app-list [label]="'Take Operator'" [obs]="obs4"></app-list>
-<app-list [label]="'Delay Operator'" [obs]="obs5"></app-list>
-<app-list [label]="'Merge Map Operator'" [obs]="obs6"></app-list>
-<app-list [label]="'Switch Map Operator'" [obs]="obs7"></app-list>
-<app-list [label]="'Concat Map Operator'" [obs]="obs8"></app-list>
+<app-header [title]="'Reactive Forms'"></app-header>
+<form class="data-form" [formGroup]="myForm" >
+    <div class="line">
+        <label for="txtName">Name</label>
+        <input type="text" [formControl]="cName"  />        
+    </div>
+    <div class="line">
+        <label for="txtAge">Age</label>
+        <input type="number" [formControl]="cAge" />
+    </div>
+    <div class="line">
+        <label for="cbJob">Job</label>
+        <select [formControl]="cJob">
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Architect</option>
+        </select>
+        
+    </div>
+    <div class="line">
+        <label for="txtMail">Mail</label>
+        <input [formControl]="cMail"/>
+    </div>
+    <div class="line">
+        <input type="submit" value="Submit" [disabled]="myForm?.invalid" (click)="formSubmitted()" />
+    </div>
+</form>
+<div>
+    current data : {{myForm?.value | json}}
+</div>
+<div>
+    submitted data : {{info | json}}
+</div>

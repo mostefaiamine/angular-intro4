@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Action } from 'src/app/model/actions';
+
 
 
 
@@ -10,26 +10,15 @@ import { Action } from 'src/app/model/actions';
 })
 export class Exercice1Component implements OnInit {
 
-  actions: Action[];
 
-  action2: Action[];
+
 
   constructor() { }
 
-  actionClicked(a: Action) {
-    alert(`Vous avez cliqué ${a.title}`);
-  }
-
+  
   ngOnInit() {
-    this.actions = [
-      { title: 'Fichier', icon: 'file' },
-      { title: 'Edition', icon: 'edit' },
-      { title: 'Enregistrer', icon: 'save' }
-    ];
-    this.action2 = [
-      { title: 'Facebook', icon: 'fb' },
-      { title: 'Twitter', icon: 'twitter' }
-    ];
+
+
   }
 }
 

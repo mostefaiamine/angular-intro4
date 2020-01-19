@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
+import { Info } from 'src/app/model/info';
 
 @Component({
   selector: 'app-exemple1',
@@ -8,26 +9,29 @@ import { Observable } from 'rxjs';
 })
 export class Exemple1Component implements OnInit {
 
-  data: Array<any> = [];
+  submittedData: any = null;
 
-  $observable: Observable<string>;
+  info: Info = {
+    name: null,
+    age: 0,
+    job: null,
+    mail: null
+  };
 
 
 
   constructor() {
-    this.$observable = new Observable(observer => {
-      observer.next('Salam');
-      observer.next('Alikoum');
-    });
+
   }
 
-  click() {
-    this.$observable.subscribe(
-      s => this.data.push(s)
-    );
-  }
+
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.submittedData = this.info;
+
   }
 
 }

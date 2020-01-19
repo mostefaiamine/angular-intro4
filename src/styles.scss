@@ -21,26 +21,41 @@ img.exerice {
   max-width: 350px;
 }
 
-img.star {
-  max-width: 32px;
-}
-
-div.carte {
-  border: 2px solid #137854;
-  padding: 8px;
-  float: left;
-  width: 240px;
-  margin: 15px;
-
-  p {
-    text-align: center;
+.data-form {
+  label {
+    display: inline-block;
+    width: 80px;
+    margin-right: 15px;
   }
 
-  h3,
-  h4 {
-    text-align: center;
-    padding: 3px;
-    margin: 5px;
+  div.line {
+    margin-bottom: 10px;
+  }
+
+  input {
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
+  }
+
+  select {
+    display: inline-block;
+    width: 150px;
+    margin-right: 15px;
   }
 }
 
+form.validable {
+  span.error-message {
+    font-size: 0.9rem;
+    color: red;
+    display: block;
+    margin-left: 95px;
+    margin-top: 3px;
+  }
+
+  input.ng-invalid.ng-dirty {
+    color: red;
+    border: 1px solid red;
+  }
+}
